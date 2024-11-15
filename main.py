@@ -30,7 +30,7 @@ def preprocess(CRSP_PATH='N:/Dataset/CRSP/CRSP.csv',OPEN_PRICE='N:/Dataset/CRSP/
     for i in tqdm.tqdm(grouped):
         flag = False
         no, df = i[0], i[1]
-        path = 'D:/test/PILtest/data_us'
+        path = './data_us'
         filename = op.join(path, str(no) + '.csv')
         df.drop(index=df[df['close'].isna()].index, inplace=True)
         df.drop(index=df[df['volume'] == 0].index, inplace=True)
