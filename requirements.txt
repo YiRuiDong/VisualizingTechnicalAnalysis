@@ -1,0 +1,13 @@
+matplotlib==3.8.0
+numpy==1.24.3
+pandas~=2.1.4
+Pillow~=9.4.0
+scipy==1.11.1
+timm==0.9.7
+torch==2.1.1+cu121
+torchvision==0.16.1+cu121
+tqdm==4.65.0
+tulipy==0.4.0
+
+statsmodels~=0.14.0
+opencv-python~=4.9.0.80
