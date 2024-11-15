@@ -59,20 +59,22 @@ def add_tech(idx):
 
 
 if __name__ == '__main__':
-    # preprocess()
-    # data_path = './data_us/'
-    # d_g = Data_generator(data_path, market='us')
-    # idx_list = [i for i in range(len(d_g.csv_name_list))]
-    # with mtp.Pool(processes=10) as pool: # multiprocessing
-    #     pool.map(add_tech,idx_list)
+    preprocess()
+    data_path = './data_us/'
+    d_g = Data_generator(data_path, market='us')
+    idx_list = [i for i in range(len(d_g.csv_name_list))]
+    with mtp.Pool(processes=10) as pool: # multiprocessing
+        pool.map(add_tech,idx_list)
+
     # for i in range(len(d_g.csv_name_list)): # non-multiprocessing
     #     d_g.addTechnicalIndicators(i, save=True, MA=(5, 20, 60), BOLL=(10, 2), MACD=(12, 26, 9), RSI=(5, 10, 20))
-    # data_path = './data_us/tech'
-    # d_g = Data_generator(data_path, 'us')
-    # d_g.div_sample_test_sets('1992-1-1', '2023-1-1', 10)
-    #
+    
+    data_path = './data_us/tech'
+    d_g = Data_generator(data_path, 'us')
+    d_g.div_sample_test_sets('1992-1-1', '2023-1-1', 10)
+    
     _model = timm.create_model('swin_tiny_patch4_window7_224', num_classes=2, in_chans=3)
-    #
+
     tech_list = (['BOLL','RSI'],['BOLL','MACD'],['BOLL','Vol'],['MA','RSI'],['MA','MACD'],['MA','Vol'])
     window_list = [5,20,60]
     seed = 1000
