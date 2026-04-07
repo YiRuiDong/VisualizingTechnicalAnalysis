@@ -55,3 +55,6 @@ pip install -r requirements.txt
 > NOTE: The `main.py` may take 120 hours running under non-parallel mode. (i7-13700K+RTX4070TI), 
 > 
 > However, this processes can be easily paralleled by using process pool to substitute the loop in `line 42` ~ `line 56` (the VRAM and RAM it consumes will be multiplied)
+
+## Contact
+For technical support, please send email to `yrdyrd123@sina.com`
