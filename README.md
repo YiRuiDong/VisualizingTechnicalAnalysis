@@ -4,6 +4,22 @@ Created: 2026-03-31
 > NOTE: this repository only contains code, for full-project files please refer to [Yi, R., & Wang, J. (2026). VisualizingTechnicalAnalysis. Zenodo.](https://doi.org/10.5281/zenodo.19416222)
 ## Install
 
+Python version: `python >= 3.11`
+
+Package Dependencies:
+- `matplotlib==3.8.0`
+- `numpy==1.24.3`
+- `pandas~=2.1.4`
+- `Pillow~=9.4.0`
+- `scipy==1.11.1`
+- `timm==0.9.7`
+- `torch==2.1.1+cu121`
+- `torchvision==0.16.1+cu121`
+- `tqdm==4.65.0`
+- `tulipy==0.4.0`
+- `statsmodels~=0.14.0`
+- `opencv-python~=4.9.0.80`
+- `grad-cam==1.5.0`
 ```bash
 pip install -r requirements.txt
 ```
@@ -31,3 +47,11 @@ pip install -r requirements.txt
   - `vix04-24.csv` and `vix93-03.csv`: VIX index data
 - `visualize_model.py`: script visualizes the attention map of model, output images to `./temp`
 - `trad_tech.py`: script generates traditional technical indicators strategy signals to `./extra_benchmark/trad_tech.csv`
+
+## Hardware Requirements
+1. Up to 5TB of disk space to store intermediary artifacts.
+2. GPU of at least 12GB of VRAM (non-parallel)
+
+> NOTE: The `main.py` may take 120 hours running under non-parallel mode. (i7-13700K+RTX4070TI), 
+> 
+> However, this processes can be easily paralleled by using process pool to substitute the loop in `line 42` ~ `line 56` (the VRAM and RAM it consumes will be multiplied)
