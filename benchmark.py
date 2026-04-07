@@ -215,5 +215,6 @@ if __name__ == "__main__":
     # print(df['c1'].rolling(2).mean())
     b = Benchmark('./data_us')
     b.add_mom(5, 20, 60)
+    b.add_revs(5, 20, 60)
     b.gen_rank_ret('./archive/model set 1', './archive/model set 12')
     pass

@@ -15,51 +15,12 @@ import tqdm
 import multiprocessing as mtp
 from BTframe import BackTest
 
-
-def preprocess(CRSP_PATH='N:/Dataset/CRSP/CRSP.csv',OPEN_PRICE='N:/Dataset/CRSP/Open price.csv'):
-    df1 = pd.read_csv(CRSP_PATH)
-    df2 = pd.read_csv(OPEN_PRICE)
-    df3 = pd.concat([df1[["PERMNO", "date", "TICKER", "PRIMEXCH", "CUSIP", "BIDLO", "ASKHI", "PRC", "VOL", "CFACPR"]],
-                     df2['OPENPRC']], axis=1)
-    df3.rename(columns={"BIDLO": 'low', 'ASKHI': 'high', 'VOL': 'volume', 'PRC': 'close', 'OPENPRC': 'open'},
-               inplace=True)
-    df3 = df3.reindex(
-        columns=["PERMNO", "date", "TICKER", "PRIMEXCH", "CUSIP", 'open', 'high', 'low', 'close', 'volume', 'CFACPR'])
-    grouped = df3.groupby('TICKER')
-    counter = 0
-    for i in tqdm.tqdm(grouped):
-        flag = False
-        no, df = i[0], i[1]
-        path = './data_us'
-        filename = op.join(path, str(no) + '.csv')
-        df.drop(index=df[df['close'].isna()].index, inplace=True)
-        df.drop(index=df[df['volume'] == 0].index, inplace=True)
-        df['date'] = pd.to_datetime(df['date'])
-        df.set_index('date',inplace=True)
-        df.sort_index(ascending=True,inplace=True)
-        df.reset_index(inplace=True)
-        for idx in range(len(df['CFACPR'])):
-            val = df['CFACPR'][idx]
-            if val == 0:
-                flag = True
-                with open('./log/preprocessing.txt', 'a') as file:
-                    print(f'TICKER {no} has illegal CFACPR in line {idx}', file=file)
-                    df.to_csv(f'./log/deprecated/{str(no)}' + '.csv')
-                break
-        if flag:
-            continue
-        df[['open', 'high', 'low', 'close']] = df[['open', 'high', 'low', 'close']].apply(lambda x: x / df['CFACPR'],
-                                                                                          axis=0)
-        df.to_csv(filename, index=False)
-
-
 def add_tech(idx):
     d_g = Data_generator('./data_us',market='us')
     d_g.addTechnicalIndicators(idx,save=True,MA=(5, 20, 60), BOLL=(10, 2), MACD=(12, 26, 9), RSI=(5, 10, 20))
 
 
 if __name__ == '__main__':
-    preprocess()
     data_path = './data_us/'
     d_g = Data_generator(data_path, market='us')
     idx_list = [i for i in range(len(d_g.csv_name_list))]
@@ -68,7 +29,7 @@ if __name__ == '__main__':
 
     # for i in range(len(d_g.csv_name_list)): # non-multiprocessing
     #     d_g.addTechnicalIndicators(i, save=True, MA=(5, 20, 60), BOLL=(10, 2), MACD=(12, 26, 9), RSI=(5, 10, 20))
-    
+
     data_path = './data_us/tech'
     d_g = Data_generator(data_path, 'us')
     d_g.div_sample_test_sets('1992-1-1', '2023-1-1', 10)
@@ -135,4 +96,4 @@ if __name__ == '__main__':
             _model.load_state_dict(torch.load(f'./checkpoint/{name}_params_complete.pt'))
 
             BT = BackTest('./data_us/tech/test', window, 5, _model, f'swin{window}{tech[0]}+{tech[1]}', tech
-                          ,out_img_path='N:/Dataset/img')
+                          ,out_img_path='N:/Dataset/img') # Change to your local disk path that has at least 5TB of space.

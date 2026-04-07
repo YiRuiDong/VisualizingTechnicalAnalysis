@@ -11,3 +11,5 @@ tulipy==0.4.0
 
 statsmodels~=0.14.0
 opencv-python~=4.9.0.80
+
+grad-cam==1.5.0

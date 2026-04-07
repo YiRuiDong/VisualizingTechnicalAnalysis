@@ -26,7 +26,7 @@ def reshape_transform(tensor, height=7, width=7):
 if __name__ == "__main__":
     model = timm.create_model('swin_tiny_patch4_window7_224', num_classes=2, in_chans=3)
     model_name = 'swin5BOLL+RSI'
-    model.load_state_dict(torch.load(f'./checkpoint/{model_name}_params_complete.pt'))
+    model.load_state_dict(torch.load(f'./archive/model set 12/checkpoint/{model_name}_params_complete.pt'))
     window = int(re.findall('[0-9]+', model_name)[0])
     model.eval()
     model = model.cuda()

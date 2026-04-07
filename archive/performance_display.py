@@ -242,13 +242,13 @@ def show_general_ret():
 
     stat_df = pd.DataFrame(stat_dict)
 
-    stat_df['DSR'] = calculate_DSR(para_list)
+    # stat_df['DSR'] = calculate_DSR(para_list)
 
-    print(stat_df['DSR'])
+    # print(stat_df['DSR'])
 
-    stat_df.sort_values('model set', inplace=True)
+    # stat_df.sort_values('model set', inplace=True)
 
-    stat_df.to_csv(f'../statistics/overall_new1.csv', index=False)
+    stat_df.to_csv(f'../statistics/overall.csv', index=False)
 
 
 def show_details(model_dict: dict):
@@ -868,23 +868,23 @@ def volatility_fig():
 
 
 if __name__ == '__main__':
-    # show_general_ret()
-    # show_details({'model set 12': ['swin20BOLL+MACD',
-    #                                'swin5BOLL+RSI',
-    #                                'swin5MA+Vol',
-    #                                'mom5',
-    #                                'mom20',
-    #                                'mom60',
-    #                                'revs5',
-    #                                'revs20',
-    #                                'revs60']})
-    # show_scatter('model set 12.xlsx')
-    # compare_with_trad_tech({'model set 12': ['swin20BOLL+MACD', 'swin5BOLL+RSI', 'swin5MA+Vol']})
-    # compare_with_sector_idx(
-    #     {'model set 12': ['swin20BOLL+MACD', 'swin5BOLL+RSI', 'swin5MA+Vol']})
-    # FF5_analysis({'model set 12': ['swin20BOLL+MACD', 'swin5BOLL+RSI', 'swin5MA+Vol']})
+    show_general_ret()
+    show_details({'model set 12': ['swin20BOLL+MACD',
+                                   'swin5BOLL+RSI',
+                                   'swin5MA+Vol',
+                                   'mom5',
+                                   'mom20',
+                                   'mom60',
+                                   'revs5',
+                                   'revs20',
+                                   'revs60']})
+    show_scatter('model set 12.xlsx')
+    compare_with_trad_tech({'model set 12': ['swin20BOLL+MACD', 'swin5BOLL+RSI', 'swin5MA+Vol']})
+    compare_with_sector_idx(
+        {'model set 12': ['swin20BOLL+MACD', 'swin5BOLL+RSI', 'swin5MA+Vol']})
+    FF5_analysis({'model set 12': ['swin20BOLL+MACD', 'swin5BOLL+RSI', 'swin5MA+Vol']})
     volatility_fig()
-    # volatility_analysis({'model set 12': ['swin20BOLL+MACD', 'swin5BOLL+RSI', 'swin5MA+Vol']})
+    volatility_analysis({'model set 12': ['swin20BOLL+MACD', 'swin5BOLL+RSI', 'swin5MA+Vol']})
 
     # df = pd.DataFrame({'c1':[i for i in range(200)],'c2':[i*2 for i in range(200)]},index=[str(200000 + i%12+1 + i//12 * 100) for i in range(200)])
     # df.index = pd.to_datetime(df.index,format='%Y%m')
